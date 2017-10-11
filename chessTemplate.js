@@ -1,41 +1,52 @@
 
 //Board:
-var boardSize = 8;
-var tileSize = 50;
-var tiles = new Array(8);
-for(let i = 0; i < tiles.length; i++){
-  tiles[i] = new Array;
-}
+var boardSizeX = 8;
+var boardSizeY = 8;
+var tileSize = 100;
+var colourSwitch = false;
+var tiles = [];
 //- Generation
-
-let canvas = this.document.getElementById('myCanvas');
-let ctx = canvas.getContext('2d');
-
-for(let x=0; x<boardSize; x++){
-  for(let y=0; y<boardSize; y++){
-    let colourSwitch = false;
-    if(x%2 == y%2){
+for(x=0, x<boardSizeX, x++){
+  tiles[x] = [];
+  for(y=0, y<boardSizeY, y++){
+    if (colourSwitch === false){
       colourSwitch = true;
+    }
+    else {
+      colourSwitch = false;
     }
     tiles[x][y] = {
       invert: colourSwitch,
+      x: 0,
+      y: 0
     }
   }
 }
+
 function drawBoard(){
-  for(let x=0; x<boardSize; x++) {
-    for(let y=0; y<boardSize; y++) {
-      //console.log(tiles[x,y]);
-      if(tiles[x][y].invert){
-        ctx.fillStyle ='white';
-      }else{
-        ctx.fillStyle = 'grey';
+  for(x=0, x<boardSizeX, x++) {
+      for(y=0, y<boardSizeY, y++) {
+        var tileX = x * tileSize;
+        var tileY = y * tileSize;
+        tiles[c][r].x = tileX;
+        tiles[c][r].y = tileY;
+          if(tiles[c][r].invert === false) {
+              ctx.beginPath();
+              ctx.rect(tileX, tileY, tileSize, tileSize);
+              ctx.fillStyle = "#FCFED0";
+              ctx.fill();
+              ctx.closePath();
+          }
+          else {
+            ctx.beginPath();
+            ctx.rect(tileX, tileY, tileSize, tileSize);
+            ctx.fillStyle = "#000000";
+            ctx.fill();
+            ctx.closePath();
+          }
       }
-      ctx.fillRect(x*50,y*50,tileSize,tileSize);
-    }
   }
 }
-drawBoard();
 
 //Piece Data:
 function piece(){
@@ -53,6 +64,10 @@ function king(){
   let k = piece();
   k.points = 100;
   k.movement = function(r1,c1){
+    if(r1 - k.r = 1|| c1 = c){
+      return true;
+    }
+    return false;
   }
   //k.img =
 }
@@ -66,6 +81,10 @@ function rook(){
   let r = piece();
   r.points = 5;
   r.movement = function(r1,c1){
+    if(r1 = r || c1 = c){
+      return true;
+    }
+    return false;
   }
   //r.img =
 }
@@ -73,6 +92,10 @@ function knight(){
   let kn = piece();
   kn.points = 3;
   kn.movement = function(r1,c1){
+    if(r1 = r || c1 = c){
+      return true;
+    }
+    return false;
   }
   //kn.img =
 }
